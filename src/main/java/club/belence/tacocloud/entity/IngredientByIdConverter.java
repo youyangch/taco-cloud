@@ -1,0 +1,29 @@
+package club.belence.tacocloud.entity;
+
+import club.belence.tacocloud.dao.IngredientRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import club.belence.tacocloud.entity.Ingredient.Type;
+
+@Component
+public class IngredientByIdConverter implements Converter<String,Ingredient> {
+
+    private IngredientRepository ingredientRepository;
+
+    @Autowired
+    public IngredientByIdConverter(IngredientRepository ingredientRepository){
+        this.ingredientRepository = ingredientRepository;
+    }
+
+    @Override
+    public Ingredient convert(String id) {
+        return ingredientRepository.findById(id).orElse(null);
+    }
+}
+
+
